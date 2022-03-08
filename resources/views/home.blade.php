@@ -15,6 +15,10 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <br />
+                        <pre>
+                            {!! $sysinfo  !!}
+                        </pre>
                 </div>
             </div>
         </div>

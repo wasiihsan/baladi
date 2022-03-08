@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Linfo\Linfo;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $linfo = new \Linfo\Linfo;
+        /** @var Linfo/OS/Linux $parser */
+        $parser = $linfo->getParser();
+        $sysinfo = ('Hostname: <b>'. $parser->getHostName() . '</b>');
+        $sysinfo .= "<br />".('System Load: '.(json_encode($parser->getLoad(),JSON_PRETTY_PRINT)));
+        $ram=$parser->getRam();
+        $sysinfo .= "<br />".('System Load: '.json_encode($ram,JSON_PRETTY_PRINT));
+        $percent = round(100/$ram['total'] * $ram['free'],2);
+        $sysinfo .= "<br />".('RAM Free %: '.$percent);
+        return view('home',['sysinfo'=>$sysinfo]);
     }
 }
