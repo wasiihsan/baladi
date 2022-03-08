@@ -1,5 +1,5 @@
 <?php
-'edit online
+//fixed offline
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
